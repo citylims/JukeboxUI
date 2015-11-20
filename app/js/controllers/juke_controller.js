@@ -7,6 +7,7 @@ function JukeCtrl($scope, $http, Spotify) {
   init();
 
   function init(){
+    $scope.el = angular.element(document.getElementById("pallete"));
     fetchGradients();
   }
 
@@ -26,8 +27,10 @@ function JukeCtrl($scope, $http, Spotify) {
   }
 
   $scope.next = function() {
-    console.log("yup");
-    fetchGradients();
+    console.log("load next gradient");
+    var gradients = shuffle($scope.gradients);
+    var gradient = gradients[0];
+    $scope.el.css("background", "linear-gradient(to left, " + gradient.colors[0] + ", " + gradient.colors[1] + ")")
   }
 
   var shuffle = function(o) {
