@@ -1,17 +1,31 @@
-  ul {
-    list-style: none;
-  }
-  .media {
-    display: table;
-    width: 100%;
-  }
-  .media img {
-    display: table-cell;
-    max-width: 100%;
-  }
-  .media-details {
-    padding-left: 1em;
-    vertical-align: middle;
-    display: table-cell;
-    width: 90%;
-  }
+@import "pallete.scss";
+
+html{
+  height: 100%;
+
+}
+body {
+  min-height: 100%;
+}
+
+.ui-view {
+  height: 100%;
+}
+
+ul {
+  list-style: none;
+}
+.media {
+  display: table;
+  width: 100%;
+}
+.media img {
+  display: table-cell;
+  max-width: 100%;
+}
+.media-details {
+  padding-left: 1em;
+  vertical-align: middle;
+  display: table-cell;
+  width: 90%;
+}
