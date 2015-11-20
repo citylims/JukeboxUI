@@ -2,14 +2,25 @@ app.controller('JukeCtrl', JukeCtrl)
 
 JukeCtrl.$inject['$scope', "$http", "Spotify"];
 
-function JukeCtrl($scope, $http, Spotify) {
+function JukeCtrl($scope, $http, Spotify, $timeout) {
 
   init();
 
   function init(){
+    bindData();
+  }
+
+  function bindData() {
     $scope.el = angular.element(document.getElementById("pallete"));
     fetchGradients();
   }
+
+  function fetchGradients() {
+     $http.get('assets/gradients.json').success(function(data){
+       console.log(data);
+       $scope.gradients = data;
+     })
+   }
 
   $scope.searchArtist = function () {
     console.log($scope.gradients);
@@ -19,18 +30,18 @@ function JukeCtrl($scope, $http, Spotify) {
     });
   };
 
- function fetchGradients() {
-    $http.get('assets/gradients.json').success(function(data){
-      console.log(data);
-      $scope.gradients = data;
-    })
+  $scope.next = function() {
+    transitionRefresh();
   }
 
-  $scope.next = function() {
-    console.log("load next gradient");
-    var gradients = shuffle($scope.gradients);
-    var gradient = gradients[0];
-    $scope.el.css("background", "linear-gradient(to left, " + gradient.colors[0] + ", " + gradient.colors[1] + ")")
+  function transitionRefresh() {
+    $scope.el.removeClass('load')
+    $timeout(function(){
+      $scope.el.addClass('load');
+      var gradients = shuffle($scope.gradients);
+      var gradient = gradients[0];
+      $scope.el.css("background", "linear-gradient(to left, " + gradient.colors[0] + ", " + gradient.colors[1] + ")");
+    }, 800)
   }
 
   var shuffle = function(o) {
