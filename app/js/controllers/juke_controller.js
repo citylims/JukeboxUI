@@ -11,7 +11,9 @@ function JukeCtrl($scope, $http, Spotify, $timeout, $sce) {
   }
 
   function bindData() {
-    $scope.el = angular.element(document.getElementById("pallete"));
+    $scope.pallete = angular.element(document.getElementById("pallete"));
+    $scope.iframe = angular.element(document.getElementById("spotify-player"));
+    console.log($scope.iframe);
     fetchGradients();
     fetchPlaylist();
   }
@@ -28,7 +30,12 @@ function JukeCtrl($scope, $http, Spotify, $timeout, $sce) {
       $scope.timeCodes = [];
       $scope.tracks = data.tracks.items;
       for (var i = 0; i < $scope.tracks.length; i++) {
-        $scope.timeCodes.push($scope.tracks[i].track.duration_ms);
+        var track = {
+          duration: $scope.tracks[i].track.duration_ms,
+          artist: $scope.tracks[i].track.artists[0].name
+        }
+        console.log(track);
+        $scope.timeCodes.push(track);
       }
       trackCalc();
     })
@@ -41,13 +48,23 @@ function JukeCtrl($scope, $http, Spotify, $timeout, $sce) {
 
   function trackCalc(index) {
     transitionRefresh();
+    $scope.iframe.removeClass();
+
     var index = index ? index : 0;
-    var timeCode = $scope.timeCodes[index];
-    console.log(timeCode)
+    var duration = $scope.timeCodes[index].duration;
+
     var soundTrack = $timeout(function() {
       $timeout.cancel(soundTrack);
       trackCalc(index + 1);
-    }, timeCode);
+    }, duration);
+
+    setArtist()
+
+    function setArtist() {
+      $scope.artist = $scope.timeCodes[index].artist;
+      $scope.iframe.addClass($scope.timeCodes[index].artist);
+      console.log($scope.artist);
+    }
   }
 
   $scope.searchArtist = function () {
@@ -77,12 +94,12 @@ function JukeCtrl($scope, $http, Spotify, $timeout, $sce) {
   }
 
   function transitionRefresh() {
-    $scope.el.removeClass('load')
+    $scope.pallete.removeClass('load')
     $timeout(function(){
-      $scope.el.addClass('load');
+      $scope.pallete.addClass('load');
       var gradients = shuffle($scope.gradients);
       var gradient = gradients[0];
-      $scope.el.css("background", "linear-gradient(to left, " + gradient.colors[0] + ", " + gradient.colors[1] + ")");
+      $scope.pallete.css("background", "linear-gradient(to left, " + gradient.colors[0] + ", " + gradient.colors[1] + ")");
     }, 800)
   }
 
