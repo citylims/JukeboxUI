@@ -3,6 +3,7 @@
 </div>
 <div id="app">
   <button ng-click="next()">Next</button>
+  <button ng-click="foo()">foo</button>
   <!-- <h1>JUKEBOX</h1> -->
   <input type="text" ng-model="searchartist" ng-change="searchArtist()" placeholder="Search for an artist">
   <ul>
@@ -17,8 +18,8 @@
   </ul>
 </div>
 {{trackQuery}}
-<div id="spotify-container">
+<div class="spotify-container">
 
 </div>
 
-<iframe src="https://embed.spotify.com/?uri=spotify:track:1zHlj4dQ8ZAtrayhuDDmkY" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
+<iframe id="spotify-player" src="https://embed.spotify.com/?uri=spotify:user:citylims:playlist:7Iu50rZxm3R0nciFzISZLd" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
