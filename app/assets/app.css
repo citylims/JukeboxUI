@@ -13,6 +13,13 @@
   background: white;
   position: absolute;
   left: 80px; }
+  .spotify-container .play-overlay {
+    width: 80px;
+    height: 80px;
+    background: red;
+    opacity: .4;
+    position: absolute;
+    left: -80px; }
 
 html {
   height: 100%; }

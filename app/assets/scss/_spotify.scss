@@ -5,4 +5,14 @@
   background: white;
   position: absolute;
   left: 80px;
+
+  .play-overlay {
+    width: 80px;
+    height: 80px;
+    background: red;
+    opacity: .4;
+    position: absolute;
+    left: -80px;
+  }
+
 }
