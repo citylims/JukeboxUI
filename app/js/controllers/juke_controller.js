@@ -13,19 +13,45 @@ function JukeCtrl($scope, $http, Spotify, $timeout, $sce) {
   function bindData() {
     $scope.el = angular.element(document.getElementById("pallete"));
     fetchGradients();
+    fetchPlaylist();
   }
 
   function fetchGradients() {
-     $http.get('assets/gradients.json').success(function(data){
-       console.log(data);
-       $scope.gradients = data;
-     })
-   }
+    $http.get('assets/gradients.json').success(function(data){
+      $scope.gradients = data;
+    })
+  }
+
+  function fetchPlaylist() {
+    $http.get('js/playlist.json').success(function(data) {
+      console.log(data);
+      $scope.timeCodes = [];
+      $scope.tracks = data.tracks.items;
+      for (var i = 0; i < $scope.tracks.length; i++) {
+        $scope.timeCodes.push($scope.tracks[i].track.duration_ms);
+      }
+      trackCalc();
+    })
+  }
+
+  $scope.ctaConfirm = function(tracks, timecodes) {
+    // user event for play confirmation, due to spotify not exposing their api
+    //init trackCalc.
+  }
+
+  function trackCalc(index) {
+    transitionRefresh();
+    var index = index ? index : 0;
+    var timeCode = $scope.timeCodes[index];
+    console.log(timeCode)
+    var soundTrack = $timeout(function() {
+      $timeout.cancel(soundTrack);
+      trackCalc(index + 1);
+    }, timeCode);
+  }
 
   $scope.searchArtist = function () {
-    console.log($scope.gradients);
     Spotify.search($scope.searchartist, 'artist').then(function (data) {
-      console.log($scope.artists);
       $scope.artists = data.artists.items;
     });
   };
@@ -42,15 +68,9 @@ function JukeCtrl($scope, $http, Spotify, $timeout, $sce) {
       var template = "<iframe src='" + embedUrl + "' width='300' height='80' frameboreder='0' allowtransparency='true'></iframe>";
       console.log(template);
       console.log(embedUrl);
-      $scope.track = data
+      $scope.track = data;
       $scope.trackQuery = $sce.trustAsResourceUrl($scope.track.uri);
       player.append(template);
-// <iframe ng-src="https://embed.spotify.com/?uri={{trackQuery}}"  width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
-      // $sce.trustAsResourceUrl($scope.currentProject.url);
-      // $scope.track = {
-      //   uri: "spotify:track:4th1RQAelzqgY7wL53UGQt"
-      // }
-
     }).error(function(data){
       console.log(data);
     })
