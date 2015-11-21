@@ -2,7 +2,7 @@ app.controller('JukeCtrl', JukeCtrl)
 
 JukeCtrl.$inject['$scope', "$http", "Spotify"];
 
-function JukeCtrl($scope, $http, Spotify, $timeout) {
+function JukeCtrl($scope, $http, Spotify, $timeout, $sce) {
 
   init();
 
@@ -32,6 +32,28 @@ function JukeCtrl($scope, $http, Spotify, $timeout) {
 
   $scope.next = function() {
     transitionRefresh();
+    $http.get("https://api.spotify.com/v1/tracks/1zHlj4dQ8ZAtrayhuDDmkY").
+    success(function(data) {
+      console.log(data);
+      var player = angular.element(document.getElementById('spotify-container'));
+      console.log(player);
+      var embedUrl = "https://embed.spotify.com/?uri=";
+      var embedUrl = embedUrl += data.uri;
+      var template = "<iframe src='" + embedUrl + "' width='300' height='80' frameboreder='0' allowtransparency='true'></iframe>";
+      console.log(template);
+      console.log(embedUrl);
+      $scope.track = data
+      $scope.trackQuery = $sce.trustAsResourceUrl($scope.track.uri);
+      player.append(template);
+// <iframe ng-src="https://embed.spotify.com/?uri={{trackQuery}}"  width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
+      // $sce.trustAsResourceUrl($scope.currentProject.url);
+      // $scope.track = {
+      //   uri: "spotify:track:4th1RQAelzqgY7wL53UGQt"
+      // }
+
+    }).error(function(data){
+      console.log(data);
+    })
   }
 
   function transitionRefresh() {
