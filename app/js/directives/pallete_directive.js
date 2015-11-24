@@ -30,21 +30,21 @@
 
   function palleteCtrl($scope, $http, $timeout, $interval, JukeService) {
 
-    $scope.pallete = angular.element(document.getElementById("pallete"));
+    var pallete = angular.element(document.getElementById("pallete"));
+
     init();
 
     function init() {
-      JukeService.getGradients().then(function(res) {
-        console.log(res);
-      }, function(err) {
-        console.log(err);
-      })
-      console.log($scope.pallete);
+      fetchGradients();
     }
 
-    var shuffle = function(o) {
-      for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-      return o;
+    function fetchGradients() {
+      JukeService.getGradients().then(function(res) {
+        $scope.gradients = res.data;
+        JukeService.transitionRefresh(pallete, $scope.gradients);
+      });
     }
+
   }
+
 })();
