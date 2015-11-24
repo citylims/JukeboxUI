@@ -6,9 +6,9 @@ angular
   .module('jukeboxApp')
   .controller('JukeCtrl', JukeCtrl);
 
-  JukeCtrl.$inject['$scope', "$http", "Spotify"];
+  JukeCtrl.$inject['$scope', "$http", "Spotify", "JukeService"];
 
-  function JukeCtrl($scope, $http, Spotify, $timeout, $sce) {
+  function JukeCtrl($scope, $http, Spotify, $timeout, $sce, JukeService) {
 
     init();
 
@@ -16,6 +16,11 @@ angular
       bindData();
       fetchGradients();
       fetchPlaylist();
+      JukeService.getGradients().then(function(res) {
+        console.log(res);
+      }, function(err) {
+        console.log(err)
+      })
     }
 
     function bindData() {
