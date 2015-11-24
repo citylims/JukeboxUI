@@ -14,13 +14,7 @@ angular
 
     function init(){
       bindData();
-      fetchGradients();
       fetchPlaylist();
-      JukeService.getGradients().then(function(res) {
-        console.log(res);
-      }, function(err) {
-        console.log(err)
-      })
     }
 
     function bindData() {
@@ -32,15 +26,9 @@ angular
       embedPlayButton();
     }
 
-    function fetchGradients() {
-      $http.get('assets/gradients.json').success(function(data){
-        $scope.gradients = data;
-      })
-    }
-
     function fetchPlaylist() {
-      $http.get('js/playlist.json').success(function(data) {
-        console.log(data);
+      JukeService.getPlaylist().then(function(res){
+        var data = res.data;
         $scope.timeCodes = [];
         $scope.tracks = data.tracks.items;
         for (var i = 0; i < $scope.tracks.length; i++) {
@@ -50,7 +38,6 @@ angular
           }
           $scope.timeCodes.push(track);
         }
-        $scope.transitionRefresh();
       })
     }
 
@@ -99,21 +86,6 @@ angular
       $timeout(function(){
         trackCalc();
       }, 1000 )
-    }
-
-    $scope.transitionRefresh = function() {
-      $scope.pallete.removeClass('load')
-      $timeout(function(){
-        $scope.pallete.addClass('load');
-        var gradients = shuffle($scope.gradients);
-        var gradient = gradients[0];
-        $scope.pallete.css("background", "linear-gradient(to left, " + gradient.colors[0] + ", " + gradient.colors[1] + ")");
-      }, 800)
-    }
-
-    var shuffle = function(o) {
-      for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-      return o;
     }
 
   };//JukeCtrl
