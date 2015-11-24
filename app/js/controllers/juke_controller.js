@@ -8,14 +8,17 @@ function JukeCtrl($scope, $http, Spotify, $timeout, $sce) {
 
   function init(){
     bindData();
+    fetchGradients();
+    fetchPlaylist();
   }
 
   function bindData() {
     $scope.pallete = angular.element(document.getElementById("pallete"));
-    $scope.iframe = angular.element(document.getElementById("spotify-player"));
-    console.log($scope.iframe);
-    fetchGradients();
-    fetchPlaylist();
+    $scope.overlayButton = angular.element(document.getElementById("overlayBtn"));
+    $scope.iframe = angular.element(document.getElementById("spotifyPlayer"));
+    $scope.iframeContainer = angular.element(document.getElementById("iframeContainer"));
+    // get iframe
+    embedPlayButton();
   }
 
   function fetchGradients() {
@@ -34,28 +37,25 @@ function JukeCtrl($scope, $http, Spotify, $timeout, $sce) {
           duration: $scope.tracks[i].track.duration_ms,
           artist: $scope.tracks[i].track.artists[0].name
         }
-        console.log(track);
         $scope.timeCodes.push(track);
       }
-      trackCalc();
+      $scope.transitionRefresh();
     })
   }
 
-  $scope.ctaConfirm = function(tracks, timecodes) {
-    // user event for play confirmation, due to spotify not exposing their api
-    //init trackCalc.
-  }
-
   function trackCalc(index) {
-    transitionRefresh();
     $scope.iframe.removeClass();
 
     var index = index ? index : 0;
+    console.log(index);
     var duration = $scope.timeCodes[index].duration;
+    console.log(duration);
 
     var soundTrack = $timeout(function() {
-      $timeout.cancel(soundTrack);
       trackCalc(index + 1);
+      $timeout.cancel(soundTrack);
+      $scope.transitionRefresh();
+      console.log("soundtrack")
     }, duration);
 
     setArtist()
@@ -65,7 +65,7 @@ function JukeCtrl($scope, $http, Spotify, $timeout, $sce) {
       $scope.iframe.addClass($scope.timeCodes[index].artist);
       console.log($scope.artist);
     }
-  }
+  } //track calc
 
   $scope.searchArtist = function () {
     Spotify.search($scope.searchartist, 'artist').then(function (data) {
@@ -73,27 +73,24 @@ function JukeCtrl($scope, $http, Spotify, $timeout, $sce) {
     });
   };
 
-  $scope.next = function() {
-    transitionRefresh();
-    $http.get("https://api.spotify.com/v1/tracks/1zHlj4dQ8ZAtrayhuDDmkY").
-    success(function(data) {
-      console.log(data);
-      var player = angular.element(document.getElementById('spotify-container'));
-      console.log(player);
-      var embedUrl = "https://embed.spotify.com/?uri=";
-      var embedUrl = embedUrl += data.uri;
-      var template = "<iframe src='" + embedUrl + "' width='300' height='80' frameboreder='0' allowtransparency='true'></iframe>";
-      console.log(template);
-      console.log(embedUrl);
-      $scope.track = data;
-      $scope.trackQuery = $sce.trustAsResourceUrl($scope.track.uri);
-      player.append(template);
-    }).error(function(data){
-      console.log(data);
-    })
+  function embedPlayButton() {
+    //hardcoding this for now
+    var embedUrl = "https://embed.spotify.com/?uri=";
+    var playlistUri = "spotify%3Auser%3Acitylims%3Aplaylist%3A7Iu50rZxm3R0nciFzISZLd";
+    var targetUrl = embedUrl += playlistUri;
+    console.log(targetUrl);
+    var template = "<iframe src='" + targetUrl + "' width='300' height='80' frameborder='0' allowtransparency='true'></iframe>";
+    $scope.iframeContainer.append(template);
   }
 
-  function transitionRefresh() {
+  $scope.pressPlay = function() {
+    $scope.overlayButton.css("display", "none");
+    $timeout(function(){
+      trackCalc();
+    }, 1000 )
+  }
+
+  $scope.transitionRefresh = function() {
     $scope.pallete.removeClass('load')
     $timeout(function(){
       $scope.pallete.addClass('load');
