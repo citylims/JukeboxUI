@@ -1,10 +1,8 @@
 <div id="pallete" class="pallete load">
 
 </div>
-<div id="app">
-  <button ng-click="next()">Next</button>
+<div class="jukebox-container">
   <button ng-click="foo()">foo</button>
-  <!-- <h1>JUKEBOX</h1> -->
   <input type="text" ng-model="searchartist" ng-change="searchArtist()" placeholder="Search for an artist">
   <ul>
     <li ng-repeat="artist in artists">
@@ -18,8 +16,8 @@
   </ul>
 </div>
 {{trackQuery}}
-<div class="spotify-container">
-  <div class="play-overlay"></div>
+<div class="overlay-container">
+  <div id="overlayBtn" class="overlay-button" ng-click="pressPlay()"></div>
 </div>
 
-<iframe id="spotify-player" src="https://embed.spotify.com/?uri=spotify:user:citylims:playlist:7Iu50rZxm3R0nciFzISZLd" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
+<div id="iframeContainer"></div>
