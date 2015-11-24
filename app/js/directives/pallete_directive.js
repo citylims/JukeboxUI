@@ -7,7 +7,7 @@
   */
 
   angular
-    .module('starter')
+    .module('jukeboxApp')
     .directive('pallete', pallete);
 
   function pallete() {
@@ -29,6 +29,17 @@
   palleteCtrl.$inject = ['$scope', '$http', '$timeout', '$interval'];
 
   function palleteCtrl($scope, $http, $timeout, $interval) {
-    
+
+    $scope.pallete = angular.element(document.getElementById("pallete"));
+    init();
+
+    function init() {
+      console.log($scope.pallete);
+    }
+
+    var shuffle = function(o) {
+      for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+      return o;
+    }
   }
 })();
