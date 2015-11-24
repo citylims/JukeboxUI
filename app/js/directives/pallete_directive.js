@@ -26,14 +26,19 @@
     };
   }
 
-  palleteCtrl.$inject = ['$scope', '$http', '$timeout', '$interval'];
+  palleteCtrl.$inject = ['$scope', '$http', '$timeout', '$interval', 'JukeService'];
 
-  function palleteCtrl($scope, $http, $timeout, $interval) {
+  function palleteCtrl($scope, $http, $timeout, $interval, JukeService) {
 
     $scope.pallete = angular.element(document.getElementById("pallete"));
     init();
 
     function init() {
+      JukeService.getGradients().then(function(res) {
+        console.log(res);
+      }, function(err) {
+        console.log(err);
+      })
       console.log($scope.pallete);
     }
 
