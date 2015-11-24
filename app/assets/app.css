@@ -7,13 +7,13 @@
   .pallete.load {
     opacity: 1; }
 
-.spotify-container {
+.overlay-container {
   width: 220px;
   height: 80px;
   background: white;
   position: absolute;
   left: 80px; }
-  .spotify-container .play-overlay {
+  .overlay-container .overlay-button {
     width: 80px;
     height: 80px;
     background: red;
