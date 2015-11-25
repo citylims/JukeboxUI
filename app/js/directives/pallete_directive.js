@@ -30,8 +30,6 @@
 
   function palleteCtrl($scope, $http, $timeout, $interval, JukeService) {
 
-    var pallete = angular.element(document.getElementById("pallete"));
-
     init();
 
     function init() {
@@ -41,7 +39,8 @@
     function fetchGradients() {
       JukeService.getGradients().then(function(res) {
         $scope.gradients = res.data;
-        JukeService.transitionRefresh(pallete, $scope.gradients);
+        console.log(res);
+        JukeService.transitionRefresh($scope.gradients);
       });
     }
 
