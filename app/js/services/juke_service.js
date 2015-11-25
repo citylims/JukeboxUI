@@ -22,8 +22,10 @@
       return $http.get('js/playlist.json');
     }
 
-    function transitionRefresh(pallete, gradients) {
+    function transitionRefresh(gradients) {
+      var pallete = angular.element(document.getElementById("pallete"));
       pallete.toggleClass('load')
+      
       var gradients = shuffle(gradients);
 
       $timeout(function(){
