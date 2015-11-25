@@ -82,16 +82,6 @@
         $timeout.cancel(soundTrack)
         JukeService.transitionRefresh($scope.gradients);
       }, duration);
-
-      // setArtist()
-
-      function setArtist() {
-        // iframe.removeClass();
-
-        $scope.artist = $scope.timeCodes[index].artist;
-        iframe.addClass($scope.timeCodes[index].artist);
-        console.log($scope.artist);
-      }
     }
 
     $scope.pressPlay = function() {
@@ -100,8 +90,6 @@
         trackCalc();
       }, 1000)
     }
-
-
 
   }
 
