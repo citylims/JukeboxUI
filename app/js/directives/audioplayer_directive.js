@@ -85,7 +85,6 @@
         $timeout.cancel(soundTrack)
         JukeService.transitionRefresh($scope.gradients);
       }, duration);
-
     }
 
     $scope.pressPlay = function() {
