@@ -13,7 +13,7 @@
   function pallete() {
     var directive = {
       restrict: 'E',
-      template: '<div id="pallete" class="pallete load">',
+      templateUrl: '../templates/pallete.html',
       scope: true,
       controller: palleteCtrl,
       bindToController: true,
