@@ -78,10 +78,7 @@
       var duration = $scope.timeCodes[index].duration;
       console.log(duration);
 
-      $rootScope.$broadcast('active track', {
-        index: index,
-        duration: duration
-      });
+      $rootScope.$broadcast('active track', index);
 
       var soundTrack = $timeout(function() {
         trackCalc(index + 1);
