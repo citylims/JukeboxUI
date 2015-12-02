@@ -13,7 +13,18 @@
     background-size: cover;
     transform: translateY(40%);
     /* background: transparent; */
+    .song {
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      font-size: 12px;
+      margin: 0px;
+      width: 100%;
+      bottom: 0px;
+      text-align: center;
+    }
   }
+
 
 
 }
