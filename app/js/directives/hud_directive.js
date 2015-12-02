@@ -40,7 +40,9 @@
     function setHud(trackObj) {
       console.log(trackObj);
       $scope.track = {
-        image: trackObj.album.images[0].url
+        image: trackObj.album.images[0].url,
+        songName: trackObj.name,
+        artist: trackObj.artists[0].name
       }
       $scope.$apply();
     }

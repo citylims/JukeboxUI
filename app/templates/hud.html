@@ -1,5 +1,9 @@
 <div id="hud">
   <div class="track-image" ng-style="{'background-image': 'url('+track.image+')'}">
+    <p class="song" ng-if="track">{{track.songName}} by {{track.artist}}</p>
+  </div>
+  <div  class="track-info">
+
   </div>
   <!-- <img ng-src="{{track.image}}">
   <div class="track-info"> -->
