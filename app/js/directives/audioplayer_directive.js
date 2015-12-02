@@ -25,9 +25,9 @@
     };
   }
 
-  audioplayerCtrl.$inject = ['$scope', '$http', '$timeout', 'JukeService'];
+  audioplayerCtrl.$inject = ['$scope', '$http', '$timeout', 'JukeService', '$rootScope'];
 
-  function audioplayerCtrl($scope, $http, $timeout, JukeService) {
+  function audioplayerCtrl($scope, $http, $timeout, JukeService, $rootScope) {
 
     var overlayButton = angular.element(document.getElementById("overlayBtn"));
     var iframe = angular.element(document.getElementById('spotifyPlayer'));
@@ -77,11 +77,18 @@
       console.log(index);
       var duration = $scope.timeCodes[index].duration;
       console.log(duration);
+
+      $rootScope.$broadcast('active track', {
+        index: index,
+        duration: duration
+      });
+
       var soundTrack = $timeout(function() {
         trackCalc(index + 1);
         $timeout.cancel(soundTrack)
         JukeService.transitionRefresh($scope.gradients);
       }, duration);
+
     }
 
     $scope.pressPlay = function() {
