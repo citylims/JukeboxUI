@@ -1,27 +1,25 @@
-<!-- <div id="pallete" class="pallete load"> -->
 <hud></hud>
+
 <pallete></pallete>
 
-</div>
 <div class="jukebox-container">
-  <button ng-click="foo()">foo</button>
-  <input type="text" ng-model="searchartist" ng-change="searchArtist()" placeholder="Search for an artist">
-  <ul>
-    <li ng-repeat="artist in artists">
-      <a class="media" ng-href="{{artist.external_urls.spotify}}" target="_blank">
-        <img ng-src="{{artist.images[0].url}}" alt="">
-        <div class="media-details">
-          {{artist.name}}
-        </div>
-      </a>
-    </li>
-  </ul>
-</div>
-{{trackQuery}}
-<audioplayer></audioplayer>
-<!-- <div class="overlay-container">
-  <div id="overlayBtn" class="overlay-button" ng-click="pressPlay()"></div>
+  <nav>
+    <a ng-click="palleteRefresh()">refresh</a>
+    <button ng-click="foo()">foo</button>
+    <input type="text" ng-model="searchartist" ng-change="searchArtist()" placeholder="Search for an artist">
+  </nav>
+  <div class="results-wrap">
+    <ul>
+      <li ng-repeat="artist in artists">
+        <a class="media" ng-href="{{artist.external_urls.spotify}}" target="_blank">
+          <img ng-src="{{artist.images[0].url}}" alt="">
+          <div class="media-details">
+            {{artist.name}}
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
 </div>
 
-<div id="iframeContainer"></div>
- -->
+<audioplayer></audioplayer>
