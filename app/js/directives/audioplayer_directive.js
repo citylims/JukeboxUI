@@ -30,7 +30,7 @@
   function audioplayerCtrl($scope, $http, $timeout, JukeService, $rootScope) {
 
     var overlayButton = angular.element(document.getElementById("overlayBtn"));
-    var iframe = angular.element(document.getElementById('spotifyPlayer'));
+    var iframe = angular.element(document.getElementById("spotifyPlayer"));
     var iframeContainer = angular.element(document.getElementById("iframeContainer"));
     $scope.timeCodes = [];
 
@@ -83,7 +83,7 @@
       var soundTrack = $timeout(function() {
         trackCalc(index + 1);
         $timeout.cancel(soundTrack)
-        JukeService.transitionRefresh($scope.gradients);
+        JukeService.palleteRefresh($scope.gradients);
       }, duration);
     }
 

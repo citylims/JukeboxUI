@@ -26,21 +26,15 @@
     };
   }
 
-  palleteCtrl.$inject = ['$scope', '$http', '$timeout', '$interval', 'JukeService'];
+  palleteCtrl.$inject = ['$scope', 'JukeService'];
 
-  function palleteCtrl($scope, $http, $timeout, $interval, JukeService) {
+  function palleteCtrl($scope, JukeService) {
 
-    init();
-
-    function init() {
-      fetchGradients();
-    }
+    var pallete = fetchGradients()
 
     function fetchGradients() {
       JukeService.getGradients().then(function(res) {
         $scope.gradients = res.data;
-        console.log(res);
-        JukeService.transitionRefresh($scope.gradients);
       });
     }
 
