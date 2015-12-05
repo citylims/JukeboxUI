@@ -6,14 +6,13 @@ angular
   .module('jukeboxApp')
   .controller('JukeCtrl', JukeCtrl);
 
-  JukeCtrl.$inject['$scope', "$http", "Spotify", "JukeService"];
-
   function JukeCtrl($scope, $http, Spotify, JukeService) {
 
     init();
 
     function init() {
-      fetchPlaylist()
+      fetchPlaylist();
+      fetchGradients();
     }
 
     function fetchPlaylist() {
@@ -22,11 +21,29 @@ angular
       });
     }
 
-    $scope.searchArtist = function () {
-      Spotify.search($scope.searchartist, 'artist').then(function (data) {
-        $scope.artists = data.artists.items;
+    function fetchGradients() {
+      JukeService.getGradients().then(function(res) {
+        $scope.gradients = res.data;
+        $scope.palleteRefresh();
       });
+    }
+
+    $scope.searchArtist = function () {
+      if (!$scope.searchartist) {
+        $scope.artists = [];
+      } else {
+        Spotify.search($scope.searchartist, 'artist').then(function (data) {
+          $scope.artists = data.artists.items;
+        });
+      }
     };
+
+    $scope.palleteRefresh = function() {
+      console.log($scope.gradients)
+      if ($scope.gradients) {
+        JukeService.palleteRefresh($scope.gradients);
+      }
+    }
 
   };//JukeCtrl
 })();
