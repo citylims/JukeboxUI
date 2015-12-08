@@ -74,11 +74,9 @@
 
     function trackCalc(index) {
       var index = index ? index : 0;
-      console.log(index);
-      var duration = $scope.timeCodes[index].duration;
-      console.log(duration);
-
       $rootScope.$broadcast('active track', index);
+
+      var duration = $scope.timeCodes[index].duration;
 
       var soundTrack = $timeout(function() {
         trackCalc(index + 1);

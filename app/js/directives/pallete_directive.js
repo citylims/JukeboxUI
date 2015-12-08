@@ -15,6 +15,7 @@
       restrict: 'E',
       templateUrl: '../templates/pallete.html',
       scope: true,
+      require: '^hud'
       controller: palleteCtrl,
       bindToController: true,
       link: link
