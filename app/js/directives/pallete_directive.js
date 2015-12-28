@@ -13,18 +13,12 @@
   function pallete() {
     var directive = {
       restrict: 'E',
-      templateUrl: '../templates/pallete.html',
+      template: '<div id="pallete" class="pallete load"></div>',
       scope: true,
-      require: '^hud'
       controller: palleteCtrl,
-      bindToController: true,
-      link: link
+      bindToController: true
     };
     return directive;
-
-    function link(scope, element, attrs) {
-      //nothing yet
-    };
   }
 
   palleteCtrl.$inject = ['$scope', 'JukeService'];

@@ -42,12 +42,6 @@
       fetchGradients();
     }
 
-    function fetchGradients() {
-      JukeService.getGradients().then(function(res) {
-        $scope.gradients = res.data
-      })
-    }
-
     function embedIframe() {
       //hardcoding this per development
       var embedUrl = "https://embed.spotify.com/?uri=";
@@ -69,6 +63,12 @@
           };
         $scope.timeCodes.push(track);
         }
+      })
+    }
+
+    function fetchGradients() {
+      JukeService.getGradients().then(function(res) {
+        $scope.gradients = res.data
       })
     }
 
