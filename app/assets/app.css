@@ -1,3 +1,10 @@
+@import url(https://fonts.googleapis.com/css?family=Oxygen);
+
+body {
+  font-family: 'Oxygen';
+
+}
+
 .pallete {
   width: 100%;
   height: 500px;
@@ -71,5 +78,74 @@ ul {
   vertical-align: middle;
   display: table-cell;
   width: 90%; }
+
+.fade{
+  -webkit-transition: opacity 3s;
+  transition: opacity 3s;
+  opacity: 0;
+}
+
+.text-box-message {
+  color: red;
+  font-size: 15px;
+  font-weight: 300;
+  text-align: left;
+  position: relative;
+}
+.text-box-message p{
+  display: inline-block;
+  margin: 0;
+}
+
+.text-box-wrap {
+  border-top: 1px solid #afafaf;
+  border-bottom: 1px solid #afafaf;
+  /* width: 90%; */
+  min-height: 20px;
+  margin: 0 auto;
+  background-color:white;
+  /* box-shadow: 0px 2px 7px 1px rgba(0,0,0,0.75); */
+}
+
+.blinking-cursor {
+  opacity: 1;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 5px;
+  color: #2E3D48;
+  position: absolute;
+  top: 6px;
+  -webkit-animation: 1s blink step-end infinite;
+}
+
+@keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: black;
+  }
+}
+
+@-webkit-keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: black;
+  }
+}
+
+.default {
+  opacity: 1;
+}
+
+.text-box-arrow {
+  position: absolute;
+  right: 25px;
+  top: 12px;
+  font-size: 18px;
+  color: #afafaf !important;
+}
 
 /*# sourceMappingURL=app.css.map */
